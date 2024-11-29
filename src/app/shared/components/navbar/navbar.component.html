@@ -1,1 +1,35 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="navbar-item title">Weather App</div>
+
+  <div class="navbar-item">
+    <a routerLink="/form">Form</a>
+  </div>
+
+  <div class="navbar-item">
+    <a routerLink="/cities">List of Cities</a>
+  </div>
+
+  <div class="navbar-item dropdown">
+    <button class="dropdown-toggle">Language</button>
+    <ul class="dropdown-menu">
+      <li><a href="#" (click)="changeLanguage('en')">English</a></li>
+      <li><a href="#" (click)="changeLanguage('pt')">Portuguese</a></li>
+      <li><a href="#" (click)="changeLanguage('es')">Spanish</a></li>
+      <li><a href="#" (click)="changeLanguage('fr')">French</a></li>
+      <li><a href="#" (click)="changeLanguage('de')">German</a></li>
+      <li><a href="#" (click)="changeLanguage('it')">Italian</a></li>
+    </ul>
+  </div>
+
+  <div class="navbar-item dropdown">
+    <button class="dropdown-toggle">Timezone</button>
+    <ul class="dropdown-menu">
+      <li><a href="#" (click)="changeTimezone('UTC')">UTC</a></li>
+      <li><a href="#" (click)="changeTimezone('GMT')">GMT</a></li>
+      <li><a href="#" (click)="changeTimezone('EST')">EST</a></li>
+      <li><a href="#" (click)="changeTimezone('PST')">PST</a></li>
+      <li><a href="#" (click)="changeTimezone('CET')">CET</a></li>
+      <li><a href="#" (click)="changeTimezone('IST')">IST</a></li>
+    </ul>
+  </div>
+</nav>

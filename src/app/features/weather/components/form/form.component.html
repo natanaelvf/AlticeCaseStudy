@@ -1,1 +1,62 @@
-<p>form works!</p>
+<form [formGroup]="weatherForm" (ngSubmit)="onSubmit()">
+  <!-- City Field -->
+  <div class="field-group">
+    <label for="city">City</label>
+    <input id="city" type="text" formControlName="city" />
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('city')?.invalid" class="field-warning">
+    City is required.
+  </div>
+
+  <!-- Temperature Field -->
+  <div class="field-group">
+    <label for="temperature">Temperature (°C)</label>
+    <input id="temperature" type="number" formControlName="temperature" step="0.1" />
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('temperature')?.invalid" class="field-warning">
+    Temperature is required and must be a valid number.
+  </div>
+
+  <!-- Raining Field -->
+  <div class="field-group">
+    <label for="raining">Raining</label>
+    <select id="raining" formControlName="raining">
+      <option value="">Select</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('raining')?.invalid" class="field-warning">
+    Raining status is required.
+  </div>
+
+  <!-- Date Field -->
+  <div class="field-group">
+    <label for="date">Date</label>
+    <input id="date" type="date" formControlName="date" />
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('date')?.invalid" class="field-warning">
+    Date is required.
+  </div>
+
+  <!-- Network Power Field -->
+  <div class="field-group">
+    <label for="networkPower">Network Power (1-5)</label>
+    <input id="networkPower" type="number" formControlName="networkPower" min="1" max="5" step="0.1" />
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('networkPower')?.invalid" class="field-warning">
+    Network power is required and must be a number between 1 and 5.
+  </div>
+
+  <!-- Altitude Field -->
+  <div class="field-group">
+    <label for="altitude">Altitude (m)</label>
+    <input id="altitude" type="number" formControlName="altitude" />
+  </div>
+  <div *ngIf="formSubmitted && weatherForm.get('altitude')?.invalid" class="field-warning altitude">
+    Altitude is required.
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit">Submit</button>
+</form>
