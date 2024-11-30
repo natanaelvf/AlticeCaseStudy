@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./city-form.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
 })
-export class FormComponent {
+export class CityFormComponent {
   weatherForm: FormGroup;
   formSubmitted = false;
   submissionSuccess = false;

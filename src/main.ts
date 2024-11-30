@@ -11,12 +11,12 @@ bootstrapApplication(AppComponent, {
       {
         path: 'city-form',
         loadComponent: () =>
-          import('./app/features/weather/components/city-form/city-form.component').then((m) => m.FormComponent),
+          import('./app/features/weather/components/city-form/city-form.component').then((m) => m.CityFormComponent),
       },
       {
         path: 'city-list',
         loadComponent: () =>
-          import('./app/features/weather/components/city-list/city-list.component').then((m) => m.ListComponent),
+          import('./app/features/weather/components/city-list/city-list.component').then((m) => m.CityListComponent),
       },
       { path: '', redirectTo: 'city-form', pathMatch: 'full' },
       { path: '**', redirectTo: 'city-form', pathMatch: 'full' }, // Catch-all route

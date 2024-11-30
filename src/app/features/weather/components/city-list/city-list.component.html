@@ -1,1 +1,19 @@
-<h1>List of Cities</h1>
+<div class="city-list">
+  <h1>City List</h1>
+
+  <div *ngFor="let city of cities; let i = index" class="city-item">
+    <!-- City Name -->
+    <p (click)="toggleCityDetails(i)" class="city-name">
+      City: {{ city.cityName }}
+    </p>
+
+    <!-- Expandable Details -->
+    <div *ngIf="isCityExpanded(i)" class="city-details">
+      <p>Temperature: {{ city.temperature }}ºC</p>
+      <p>Raining: {{ city.raining }}</p>
+      <p>Date: {{ city.date | date: 'yyyy-MM-dd HH:mm' }}</p>
+      <p>Network Power: {{ city.networkPower }}</p>
+      <p>Altitude: {{ city.altitude }}m</p>
+    </div>
+  </div>
+</div>

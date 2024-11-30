@@ -1,0 +1,27 @@
+.city-list {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.city-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.city-name {
+  font-weight: bold;
+  cursor: pointer;
+  color: #007bff;
+  margin: 0;
+}
+
+.city-name:hover {
+  text-decoration: underline;
+}
+
+.city-details {
+  margin-top: 10px;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: white;
+}
