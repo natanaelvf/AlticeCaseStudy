@@ -20,7 +20,8 @@ export class CityFormComponent {
   constructor(private fb: FormBuilder, private weatherService: WeatherService) {
     this.weatherForm = this.fb.group({
       cityName: ['', Validators.required],
-      temperature: ['', [Validators.required, Validators.min(-100), Validators.max(70)]],
+      temperature: ['', [Validators.required, this.validateTemperature.bind(this)]],
+      temperatureUnit: ['C', Validators.required],
       raining: ['', Validators.required],
       date: ['', Validators.required],
       networkPower: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
@@ -48,5 +49,23 @@ export class CityFormComponent {
     } else {
       console.error('Form is invalid. Please fill in all required fields correctly.');
     }
+  }
+
+  validateTemperature(control: any) {
+    const temperature = control.value;
+    const unit = this.weatherForm?.get('temperatureUnit')?.value;
+
+    if (unit === 'F') {
+      const convertedTemp = (temperature - 32) * (5 / 9);
+      if (convertedTemp < -100 || convertedTemp > 70) {
+        return { invalidTemperature: true };
+      }
+    } else if (unit === 'C') {
+      if (temperature < -100 || temperature > 70) {
+        return { invalidTemperature: true };
+      }
+    }
+
+    return null;
   }
 }

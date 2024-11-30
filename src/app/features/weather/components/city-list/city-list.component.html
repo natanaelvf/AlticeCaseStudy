@@ -1,19 +1,49 @@
 <div class="city-list">
   <h1>City List</h1>
 
-  <div *ngFor="let city of cities; let i = index" class="city-item">
-    <!-- City Name -->
-    <p (click)="toggleCityDetails(i)" class="city-name">
-      City: {{ city.cityName }}
-    </p>
+  <button (click)="refreshData()">Refresh</button>
 
-    <!-- Expandable Details -->
-    <div *ngIf="isCityExpanded(i)" class="city-details">
-      <p>Temperature: {{ city.temperature }}ºC</p>
-      <p>Raining: {{ city.raining }}</p>
-      <p>Date: {{ city.date | date: 'yyyy-MM-dd HH:mm' }}</p>
-      <p>Network Power: {{ city.networkPower }}</p>
-      <p>Altitude: {{ city.altitude }}m</p>
+  <div *ngFor="let cityGroup of groupedCities | keyvalue" class="city-item">
+    <div (click)="toggleCityDetails(cityGroup.key)" class="city-header city-name">
+      <h2>{{ cityGroup.key }}</h2>
+    </div>
+
+    <div *ngIf="isCityExpanded(cityGroup.key)" class="city-details">
+      <div *ngFor="let record of cityGroup.value" class="city-record city-details">
+        <p class="white-border">
+          <strong>Date:</strong> {{ record.date }}<br />
+          <strong>Temperature:</strong> {{ record.temperature }}º {{ record.temperatureUnit }}<br />
+          <strong>Raining:</strong> {{ record.raining ? 'Yes' : 'No' }}<br />
+          <strong>Network Power:</strong> {{ record.networkPower }}<br />
+          <strong>Altitude:</strong> {{ record.altitude }}
+        </p>
+      </div>
+
+      <!-- Highlight the three worst registries -->
+      <div class="worst-registries" *ngIf="cityGroup.value.length > 1">
+        <h3>Worst Registries</h3>
+        <div class="worst-registry">
+          <h4>Lowest Temperature</h4>
+          <p>
+            <strong>Date:</strong> {{ getLowestTemperature(cityGroup.value).date }}<br />
+            <strong>Temperature:</strong> {{ getLowestTemperature(cityGroup.value).temperature }} °{{ getHighestTemperature(cityGroup.value).temperatureUnit }}<br />
+          </p>
+        </div>
+        <div class="worst-registry">
+          <h4>Highest Temperature</h4>
+          <p>
+            <strong>Date:</strong> {{ getHighestTemperature(cityGroup.value).date }}<br />
+            <strong>Temperature:</strong> {{ getHighestTemperature(cityGroup.value).temperature }} °{{ getHighestTemperature(cityGroup.value).temperatureUnit }}<br />
+          </p>
+        </div>
+        <div class="worst-registry">
+          <h4>Lowest Network Power</h4>
+          <p>
+            <strong>Date:</strong> {{ getLowestNetworkPower(cityGroup.value).date }}<br />
+            <strong>Network Power:</strong> {{ getLowestNetworkPower(cityGroup.value).networkPower }}<br />
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 :host {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   height: calc(100vh - 60px);
   box-sizing: border-box;
 }
@@ -17,11 +17,12 @@ form {
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
+  margin-left: 50px;
 }
 
 .field-group {
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 10px;
@@ -38,6 +39,11 @@ input, select {
   flex: 1;
   padding: 8px;
   font-size: 1rem;
+  margin-right: 10px;
+}
+
+select {
+  max-width: 200px;
 }
 
 button {
@@ -48,6 +54,8 @@ button {
   border-radius: 4px;
   padding: 10px;
   font-size: 1rem;
+  margin-left: 275px;
+  width: max-content;
 
   &:hover {
     background-color: #0056b3;
@@ -65,7 +73,7 @@ button {
 .field-warning {
   color: red;
   font-size: 0.9rem;
-  margin-bottom: 75px;
+  margin-bottom: 70px;
   margin-left: calc(250px + 20px);
   min-width: max-content;
 }
@@ -79,8 +87,4 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none; // Hide the spin buttons
   margin: 0;
-}
-
-.altitude {
-  margin-bottom: 25px;
 }

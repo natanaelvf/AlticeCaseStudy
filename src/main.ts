@@ -10,7 +10,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter([
       {
-        path: '',
+        path: 'home',
         loadComponent: () =>
           import('./app/home/home.component').then((m) => m.HomeComponent),
       },
@@ -24,8 +24,6 @@ bootstrapApplication(AppComponent, {
         loadComponent: () =>
           import('./app/features/weather/components/city-list/city-list.component').then((m) => m.CityListComponent),
       },
-      { path: '', redirectTo: 'city-form', pathMatch: 'full' },
-      { path: '**', redirectTo: 'city-form', pathMatch: 'full' }, // Catch-all route
     ]),
     importProvidersFrom(
       HttpClientModule,

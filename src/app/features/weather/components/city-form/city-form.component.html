@@ -10,11 +10,15 @@
 
   <!-- Temperature Field -->
   <div class="field-group">
-    <label for="temperature">Temperature (°C)</label>
+    <label for="temperature">Temperature</label>
     <input id="temperature" type="number" formControlName="temperature" step="0.1" />
+    <select id="temperatureUnit" formControlName="temperatureUnit">
+      <option value="C">°C</option>
+      <option value="F">°F</option>
+    </select>
   </div>
-  <div *ngIf="formSubmitted && weatherForm.get('temperature')?.invalid" class="field-warning">
-    Temperature is required and must be a number between -100ºC and 70ºC.
+  <div *ngIf="formSubmitted && weatherForm.get('temperature')?.errors?.['invalidTemperature']" class="field-warning">
+    Temperature must be between -100ºC and 70ºC (-150ºF and 160ºF).
   </div>
 
   <!-- Raining Field -->
@@ -58,16 +62,16 @@
   </div>
 
   <!-- Submit Button -->
-  <button
-  type="submit"
-  [class.success]="formSubmitted && submissionSuccess"
-  [disabled]="formSubmitted && submissionSuccess"
->
-  <ng-container *ngIf="formSubmitted && submissionSuccess; else defaultText">
-    ✔ Form Submitted Successfully
-  </ng-container>
-  <ng-template #defaultText>
-    Submit
-  </ng-template>
-</button>
+   <button
+    type="submit"
+    [class.success]="formSubmitted && submissionSuccess"
+    [disabled]="formSubmitted && submissionSuccess"
+  >
+    <ng-container *ngIf="formSubmitted && submissionSuccess; else defaultText">
+      ✔ Form Submitted Successfully
+    </ng-container>
+    <ng-template #defaultText>
+      Submit
+    </ng-template>
+  </button>
 </form>
