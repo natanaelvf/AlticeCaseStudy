@@ -4,7 +4,6 @@
   align-items: center;
   padding: 12px;
   background-color: #696969;
-  color: white;
 }
 
 .navbar-item {
@@ -82,5 +81,9 @@ a:hover {
 a:focus {
   text-decoration: none;
   color: white;
+}
+
+.white-nav {
+  color: white !important;
 }
 

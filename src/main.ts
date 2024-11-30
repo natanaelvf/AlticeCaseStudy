@@ -1,13 +1,19 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './app/app-translate-loader.module';
+import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter([
+      {
+        path: '',
+        loadComponent: () =>
+          import('./app/home/home.component').then((m) => m.HomeComponent),
+      },
       {
         path: 'city-form',
         loadComponent: () =>
@@ -21,6 +27,15 @@ bootstrapApplication(AppComponent, {
       { path: '', redirectTo: 'city-form', pathMatch: 'full' },
       { path: '**', redirectTo: 'city-form', pathMatch: 'full' }, // Catch-all route
     ]),
-    importProvidersFrom(BrowserAnimationsModule, HttpClientModule),
+    importProvidersFrom(
+      HttpClientModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
+      })
+    ),
   ],
 }).catch((err) => console.error(err));
