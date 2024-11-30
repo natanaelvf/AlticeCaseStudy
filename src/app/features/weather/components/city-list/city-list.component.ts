@@ -12,6 +12,12 @@ interface CityRecord {
   altitude: number;
 }
 
+interface WorstRegistries {
+  lowestTemperature: CityRecord;
+  highestTemperature: CityRecord;
+  lowestNetworkPower: CityRecord;
+}
+
 @Component({
   standalone: true,
   selector: 'app-city-list',
@@ -22,6 +28,7 @@ interface CityRecord {
 export class CityListComponent implements OnInit {
   cities: CityRecord[] = [];
   groupedCities: Map<string, CityRecord[]> = new Map();
+  worstRegistries: Map<string, WorstRegistries> = new Map(); // Cache for worst registries
   expandedCities: Set<string> = new Set();
 
   constructor(private weatherService: WeatherService) {}
@@ -40,12 +47,33 @@ export class CityListComponent implements OnInit {
 
   groupCitiesByName() {
     this.groupedCities.clear();
+    this.worstRegistries.clear(); // Reset the cache for worst registries
+
     for (const city of this.cities) {
       if (!this.groupedCities.has(city.cityName)) {
         this.groupedCities.set(city.cityName, []);
       }
       this.groupedCities.get(city.cityName)!.push(city);
     }
+
+    // Precompute worst registries for each group
+    this.groupedCities.forEach((records, cityName) => {
+      this.worstRegistries.set(cityName, this.getWorstRegistries(records));
+    });
+  }
+
+  getWorstRegistries(cityRecords: CityRecord[]): WorstRegistries {
+    const lowestTemperature = cityRecords.reduce((lowest, current) =>
+      current.temperature < lowest.temperature ? current : lowest
+    );
+    const highestTemperature = cityRecords.reduce((highest, current) =>
+      current.temperature > highest.temperature ? current : highest
+    );
+    const lowestNetworkPower = cityRecords.reduce((lowest, current) =>
+      current.networkPower < lowest.networkPower ? current : lowest
+    );
+
+    return { lowestTemperature, highestTemperature, lowestNetworkPower };
   }
 
   toggleCityDetails(cityName: string) {
@@ -58,18 +86,6 @@ export class CityListComponent implements OnInit {
 
   isCityExpanded(cityName: string): boolean {
     return this.expandedCities.has(cityName);
-  }
-
-  getLowestTemperature(cityRecords: CityRecord[]): CityRecord {
-    return cityRecords.reduce((lowest, current) => (current.temperature < lowest.temperature ? current : lowest), cityRecords[0]);
-  }
-
-  getHighestTemperature(cityRecords: CityRecord[]): CityRecord {
-    return cityRecords.reduce((highest, current) => (current.temperature > highest.temperature ? current : highest), cityRecords[0]);
-  }
-
-  getLowestNetworkPower(cityRecords: CityRecord[]): CityRecord {
-    return cityRecords.reduce((lowest, current) => (current.networkPower < lowest.networkPower ? current : lowest), cityRecords[0]);
   }
 
   refreshData(): void {

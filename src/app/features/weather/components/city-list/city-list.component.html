@@ -25,22 +25,24 @@
         <div class="worst-registry">
           <h4>Lowest Temperature</h4>
           <p>
-            <strong>Date:</strong> {{ getLowestTemperature(cityGroup.value).date }}<br />
-            <strong>Temperature:</strong> {{ getLowestTemperature(cityGroup.value).temperature }} °{{ getHighestTemperature(cityGroup.value).temperatureUnit }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.date }}<br />
+            <strong>Temperature:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperature }}
+            °{{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperatureUnit }}<br />
           </p>
         </div>
         <div class="worst-registry">
           <h4>Highest Temperature</h4>
           <p>
-            <strong>Date:</strong> {{ getHighestTemperature(cityGroup.value).date }}<br />
-            <strong>Temperature:</strong> {{ getHighestTemperature(cityGroup.value).temperature }} °{{ getHighestTemperature(cityGroup.value).temperatureUnit }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.highestTemperature?.date }}<br />
+            <strong>Temperature:</strong> {{ worstRegistries.get(cityGroup.key)?.highestTemperature?.temperature }}
+            °{{ worstRegistries.get(cityGroup.key)?.highestTemperature?.temperatureUnit }}<br />
           </p>
         </div>
         <div class="worst-registry">
           <h4>Lowest Network Power</h4>
           <p>
-            <strong>Date:</strong> {{ getLowestNetworkPower(cityGroup.value).date }}<br />
-            <strong>Network Power:</strong> {{ getLowestNetworkPower(cityGroup.value).networkPower }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.date }}<br />
+            <strong>Network Power:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.networkPower }}<br />
           </p>
         </div>
       </div>
