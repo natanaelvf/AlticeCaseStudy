@@ -65,10 +65,10 @@
    <button
     type="submit"
     [class.success]="formSubmitted && submissionSuccess"
-    [disabled]="formSubmitted && submissionSuccess"
+    [disabled]="false"
   >
-    <ng-container *ngIf="formSubmitted && submissionSuccess; else defaultText">
-      ✔ Form Submitted Successfully
+    <ng-container *ngIf="defaultText">
+      Submit
     </ng-container>
     <ng-template #defaultText>
       Submit

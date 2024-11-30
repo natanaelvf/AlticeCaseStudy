@@ -52,3 +52,30 @@
   padding-left: 50px;
   margin-top: 10px;
 }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-container h1 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-container button {
+  margin-left: 20px;
+  padding: 10px 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #221e1e;
+  color: white;
+  border: 3px solid white;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #333333;
+  }
+}

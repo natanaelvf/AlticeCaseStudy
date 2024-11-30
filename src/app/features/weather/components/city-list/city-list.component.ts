@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 interface CityRecord {
   cityName: string;
@@ -23,13 +24,17 @@ interface WorstRegistries {
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
   styleUrls: ['./city-list.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, NgxEchartsModule], // Add NgxEchartsModule here
 })
 export class CityListComponent implements OnInit {
   cities: CityRecord[] = [];
   groupedCities: Map<string, CityRecord[]> = new Map();
   worstRegistries: Map<string, WorstRegistries> = new Map(); // Cache for worst registries
   expandedCities: Set<string> = new Set();
+
+  // ECharts options
+  temperatureGraphOptions: Map<string, any> = new Map();
+  networkPowerGraphOptions: Map<string, any> = new Map();
 
   constructor(private weatherService: WeatherService) {}
 
@@ -48,6 +53,8 @@ export class CityListComponent implements OnInit {
   groupCitiesByName() {
     this.groupedCities.clear();
     this.worstRegistries.clear(); // Reset the cache for worst registries
+    this.temperatureGraphOptions.clear();
+    this.networkPowerGraphOptions.clear();
 
     for (const city of this.cities) {
       if (!this.groupedCities.has(city.cityName)) {
@@ -56,9 +63,10 @@ export class CityListComponent implements OnInit {
       this.groupedCities.get(city.cityName)!.push(city);
     }
 
-    // Precompute worst registries for each group
+    // Precompute worst registries and graph data for each group
     this.groupedCities.forEach((records, cityName) => {
       this.worstRegistries.set(cityName, this.getWorstRegistries(records));
+      this.prepareGraphOptions(cityName, records);
     });
   }
 
@@ -74,6 +82,67 @@ export class CityListComponent implements OnInit {
     );
 
     return { lowestTemperature, highestTemperature, lowestNetworkPower };
+  }
+
+  prepareGraphOptions(cityName: string, records: CityRecord[]) {
+    // There's definitely a way to implement this with both Celsius and Fahrenheit, but this already took too long
+    const sortedRecords = records.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    this.temperatureGraphOptions.set(cityName, {
+      xAxis: {
+        type: 'category',
+        data: sortedRecords.map((record) => new Date(record.date).toLocaleDateString()),
+        axisLabel: { fontSize: 25, color: 'white' },
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { fontSize: 25, color: 'white' },
+      },
+      series: [
+        {
+          data: sortedRecords.map((record) => record.temperature),
+          type: 'line',
+          smooth: false,
+          name: 'Temperature (°C)',
+          lineStyle: { color: 'blue' },
+        },
+      ],
+      tooltip: {
+        trigger: 'axis',
+        textStyle: { fontSize: 25, color: 'white' },
+      },
+      legend: {
+        textStyle: { fontSize: 35, color: 'white' },
+      },
+    });
+
+    this.networkPowerGraphOptions.set(cityName, {
+      xAxis: {
+        type: 'category',
+        data: sortedRecords.map((record) => new Date(record.date).toLocaleDateString()),
+        axisLabel: { fontSize: 25, color: 'white' },
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { fontSize: 25, color: 'white' },
+      },
+      series: [
+        {
+          data: sortedRecords.map((record) => record.networkPower),
+          type: 'line',
+          smooth: false,
+          name: 'Network Power',
+          lineStyle: { color: 'green' },
+        },
+      ],
+      tooltip: {
+        trigger: 'axis',
+        textStyle: { fontSize: 25, color: 'white' },
+      },
+      legend: {
+        textStyle: { fontSize: 40, color: 'white' },
+      },
+    });
   }
 
   toggleCityDetails(cityName: string) {
@@ -99,5 +168,9 @@ export class CityListComponent implements OnInit {
         console.error('Error fetching data:', error);
       },
     });
+  }
+
+  getConstrainedWidth(calculatedWidth: number): number {
+    return Math.min(2500, Math.max(1000, calculatedWidth));
   }
 }

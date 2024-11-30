@@ -39,11 +39,12 @@ export class CityFormComponent {
         next: () => {
           console.log('Data successfully uploaded.');
           this.submissionSuccess = true;
+          alert('Form Submitted Successfully!');
         },
         error: (error) => {
           console.error('Error uploading data:', error);
           this.submissionSuccess = false;
-          alert(error.status);
+          alert('Error submitting form: ' + error.status);
         },
       });
     } else {

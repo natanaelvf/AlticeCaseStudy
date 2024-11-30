@@ -1,7 +1,7 @@
 <div class="city-list">
-  <h1>City List</h1>
-
-  <button (click)="refreshData()">Refresh</button>
+  <div class="header-container">
+    <h1>City List <button (click)="refreshData()">Refresh</button></h1>
+  </div>
 
   <div *ngFor="let cityGroup of groupedCities | keyvalue" class="city-item">
     <div (click)="toggleCityDetails(cityGroup.key)" class="city-header city-name">
@@ -45,6 +45,22 @@
             <strong>Network Power:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.networkPower }}<br />
           </p>
         </div>
+      </div>
+      <!-- Graphs -->
+      <div class="graphs" *ngIf="cityGroup.value.length > 1">
+        <h3>Temperature Over Time</h3>
+        <echarts
+          [options]="temperatureGraphOptions.get(cityGroup.key)"
+          [style.width.px]="getConstrainedWidth(500 * cityGroup.value.length)"
+          style="height: 700px;"
+        ></echarts>
+
+        <h3>Network Power Over Time</h3>
+        <echarts
+          [options]="networkPowerGraphOptions.get(cityGroup.key)"
+          [style.width.px]="getConstrainedWidth(500 * cityGroup.value.length)"
+          style="height: 700px;"
+        ></echarts>
       </div>
     </div>
   </div>
