@@ -2,15 +2,15 @@
   <div class="navbar-item title">Weather App</div>
 
   <div class="navbar-item">
-    <a routerLink="/form">Form</a>
+    <a [routerLink]="'/city-form'" routerLinkActive="active-tab">Form</a>
   </div>
 
   <div class="navbar-item">
-    <a routerLink="/cities">List of Cities</a>
+    <a [routerLink]="'/city-list'" routerLinkActive="active-tab">List of Cities</a>
   </div>
 
   <div class="navbar-item dropdown">
-    <button class="dropdown-toggle">Language</button>
+    <button class="dropdown-toggle">Language &#9660;</button>
     <ul class="dropdown-menu">
       <li><a href="#" (click)="changeLanguage('en')">English</a></li>
       <li><a href="#" (click)="changeLanguage('pt')">Portuguese</a></li>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="navbar-item dropdown">
-    <button class="dropdown-toggle">Timezone</button>
+    <button class="dropdown-toggle">Timezone &#9660;</button>
     <ul class="dropdown-menu">
       <li><a href="#" (click)="changeTimezone('UTC')">UTC</a></li>
       <li><a href="#" (click)="changeTimezone('GMT')">GMT</a></li>
