@@ -11,7 +11,7 @@
     <div *ngIf="isCityExpanded(cityGroup.key)" class="city-details">
       <div *ngFor="let record of cityGroup.value" class="city-record city-details">
         <p class="white-border">
-          <strong>Date:</strong> {{ record.date }}<br />
+          <strong>Date:</strong> {{ record.date | formatDate}}<br />
           <strong>Temperature:</strong> {{ record.temperature }}º {{ record.temperatureUnit }}<br />
           <strong>Raining:</strong> {{ record.raining ? 'Yes' : 'No' }}<br />
           <strong>Network Power:</strong> {{ record.networkPower }}<br />
@@ -25,7 +25,7 @@
         <div class="worst-registry">
           <h4>Lowest Temperature</h4>
           <p>
-            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.date }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.date  | formatDate }}<br />
             <strong>Temperature:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperature }}
             °{{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperatureUnit }}<br />
           </p>
@@ -33,7 +33,7 @@
         <div class="worst-registry">
           <h4>Highest Temperature</h4>
           <p>
-            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.highestTemperature?.date }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.highestTemperature?.date  | formatDate }}<br />
             <strong>Temperature:</strong> {{ worstRegistries.get(cityGroup.key)?.highestTemperature?.temperature }}
             °{{ worstRegistries.get(cityGroup.key)?.highestTemperature?.temperatureUnit }}<br />
           </p>
@@ -41,7 +41,7 @@
         <div class="worst-registry">
           <h4>Lowest Network Power</h4>
           <p>
-            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.date }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.date | formatDate }}<br />
             <strong>Network Power:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestNetworkPower?.networkPower }}<br />
           </p>
         </div>
@@ -51,14 +51,14 @@
         <h3>Temperature Over Time</h3>
         <echarts
           [options]="temperatureGraphOptions.get(cityGroup.key)"
-          [style.width.px]="getConstrainedWidth(500 * cityGroup.value.length)"
+          [style.width.px]="getConstrainedWidth(700 * cityGroup.value.length)"
           style="height: 700px;"
         ></echarts>
 
         <h3>Network Power Over Time</h3>
         <echarts
           [options]="networkPowerGraphOptions.get(cityGroup.key)"
-          [style.width.px]="getConstrainedWidth(500 * cityGroup.value.length)"
+          [style.width.px]="getConstrainedWidth(700 * cityGroup.value.length)"
           style="height: 700px;"
         ></echarts>
       </div>

@@ -18,12 +18,15 @@ export class CityFormComponent {
   submissionSuccess = false;
 
   constructor(private fb: FormBuilder, private weatherService: WeatherService) {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 16); // Slice up to minutes
+
     this.weatherForm = this.fb.group({
       cityName: ['', Validators.required],
       temperature: ['', [Validators.required, this.validateTemperature.bind(this)]],
       temperatureUnit: ['C', Validators.required],
       raining: ['', Validators.required],
-      date: ['', Validators.required],
+      date: [formattedDate, Validators.required],
       networkPower: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       altitude: ['', Validators.required],
     });

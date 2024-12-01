@@ -24,20 +24,18 @@ a {
   color: white;
 }
 
-a:visited {
-  text-decoration: none;
-}
-
 a:hover {
   font-weight: 700;
-  text-decoration: none;
 }
 
-a:focus {
-  text-decoration: none;
+.nav-link.active-tab {
+  font-weight: 700;
 }
 
-.white-nav {
-  color: white !important;
+.timezone {
+  max-width: max-content;
 }
 
+.language {
+  min-width: 250px;
+}

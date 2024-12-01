@@ -22,10 +22,6 @@ export class NavbarComponent implements OnInit {
     this.timezoneDropdownOpen = !this.timezoneDropdownOpen;
   }
 
-  changeLanguage(language: string) {
-    console.log(`Language set to: ${language}`);
-  }
-
   changeTimezone(timezone: string) {
     console.log(`Timezone set to: ${timezone}`);
   }

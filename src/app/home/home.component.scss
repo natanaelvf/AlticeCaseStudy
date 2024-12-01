@@ -12,26 +12,26 @@
 }
 
 button {
-  margin: 5px;
+  font-size: 25px;
+  border: none;
+  text-decoration: none;
+  background-color: white;
+  :hover {
+    cursor: pointer;
+  }
 }
 
 .route-list {
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 a {
   color: white;
   text-decoration: none;
-}
-
-button {
-  font-size: 25px;
-  border: none;
-  text-decoration: none;
-  background-color: white;
-}
-
-button:hover {
   cursor: pointer;
 }
 
@@ -82,14 +82,6 @@ h1 {
   font-size: 70px !important;
 }
 
-.route-list {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
 p {
   font-size: 50px !important;
   border: 3px solid white;
@@ -99,8 +91,4 @@ p {
   text-align: center;
   margin: 200px 200px;
   min-width: 400px;
-}
-
-a {
-  cursor: pointer;
 }

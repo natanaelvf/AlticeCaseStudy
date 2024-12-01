@@ -2,32 +2,32 @@
   <div class="navbar-item title">Weather App</div>
 
   <div class="navbar-item">
-    <a [routerLink]="'/home'" routerLinkActive="active-tab" class="white-nav">Home</a>
+    <a [routerLink]="'/home'" routerLinkActive="active-tab" class="nav-link">Home</a>
   </div>
 
   <div class="navbar-item">
-    <a [routerLink]="'/city-form'" routerLinkActive="active-tab">Form</a>
+    <a [routerLink]="'/city-form'" routerLinkActive="active-tab" class="nav-link">Form</a>
   </div>
 
   <div class="navbar-item">
-    <a [routerLink]="'/city-list'" routerLinkActive="active-tab">List of Cities</a>
+    <a [routerLink]="'/city-list'" routerLinkActive="active-tab" class="nav-link">List of Cities</a>
   </div>
 
   <div class="navbar-item dropdown">
-    <button class="dropdown-toggle">Language &#9660;</button>
+    <button class="dropdown-toggle language">Language &#9660;</button>
     <ul class="dropdown-menu">
-      <li><a href="#" (click)="changeLanguage('en')">English</a></li>
-      <li><a href="#" (click)="changeLanguage('pt')">Portuguese</a></li>
-      <li><a href="#" (click)="changeLanguage('es')">Spanish</a></li>
-      <li><a href="#" (click)="changeLanguage('fr')">French</a></li>
-      <li><a href="#" (click)="changeLanguage('de')">German</a></li>
-      <li><a href="#" (click)="changeLanguage('it')">Italian</a></li>
+      <li><a>English</a></li>
+      <li><a>Portuguese</a></li>
+      <li><a>Spanish</a></li>
+      <li><a>French</a></li>
+      <li><a>German</a></li>
+      <li><a>Italian</a></li>
     </ul>
   </div>
 
   <div class="navbar-item dropdown">
     <button class="dropdown-toggle">Timezone &#9660;</button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu timezone">
       <li><a href="#" (click)="changeTimezone('UTC')">UTC</a></li>
       <li><a href="#" (click)="changeTimezone('GMT')">GMT</a></li>
       <li><a href="#" (click)="changeTimezone('EST')">EST</a></li>

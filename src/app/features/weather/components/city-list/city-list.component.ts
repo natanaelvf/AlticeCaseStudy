@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
 
 interface CityRecord {
   cityName: string;
@@ -24,7 +25,7 @@ interface WorstRegistries {
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
   styleUrls: ['./city-list.component.scss'],
-  imports: [CommonModule, NgxEchartsModule], // Add NgxEchartsModule here
+  imports: [CommonModule, NgxEchartsModule, FormatDatePipe],
 })
 export class CityListComponent implements OnInit {
   cities: CityRecord[] = [];
@@ -32,7 +33,6 @@ export class CityListComponent implements OnInit {
   worstRegistries: Map<string, WorstRegistries> = new Map(); // Cache for worst registries
   expandedCities: Set<string> = new Set();
 
-  // ECharts options
   temperatureGraphOptions: Map<string, any> = new Map();
   networkPowerGraphOptions: Map<string, any> = new Map();
 
@@ -104,12 +104,12 @@ export class CityListComponent implements OnInit {
           type: 'line',
           smooth: false,
           name: 'Temperature (°C)',
-          lineStyle: { color: 'blue' },
+          lineStyle: { color: 'white' },
         },
       ],
       tooltip: {
         trigger: 'axis',
-        textStyle: { fontSize: 25, color: 'white' },
+        textStyle: { fontSize: 25, color: 'black' },
       },
       legend: {
         textStyle: { fontSize: 35, color: 'white' },
@@ -132,12 +132,12 @@ export class CityListComponent implements OnInit {
           type: 'line',
           smooth: false,
           name: 'Network Power',
-          lineStyle: { color: 'green' },
+          lineStyle: { color: 'white' },
         },
       ],
       tooltip: {
         trigger: 'axis',
-        textStyle: { fontSize: 25, color: 'white' },
+        textStyle: { fontSize: 25, color: 'black' },
       },
       legend: {
         textStyle: { fontSize: 40, color: 'white' },

@@ -41,7 +41,7 @@ bootstrapApplication(AppComponent, {
       }),
       HttpClientModule,
       NgxEchartsModule.forRoot({
-        echarts: () => import('echarts'), // Dynamically import echarts
+        echarts: () => import('echarts'),
       })
     ),
     {
