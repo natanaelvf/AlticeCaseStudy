@@ -1,8 +1,24 @@
 <div class="home">
-  <h1>{{ 'WEATHER_APP' | translate }}</h1>
-  <p>{{ 'FORM' | translate }}</p>
-  <p>{{ 'LIST_OF_CITIES' | translate }}</p>
-
-  <button (click)="changeLanguage('en')">English</button>
-  <button (click)="changeLanguage('pt')">Portuguese</button>
+  <div class="header-container">
+    <h1>{{ 'WEATHER_APP' | translate }}</h1>
+    <div class="dropdown">
+      <button class="dropdown-toggle">Language &#9660;</button>
+      <ul class="dropdown-menu">
+        <li><a (click)="changeLanguage('en')">English</a></li>
+        <li><a (click)="changeLanguage('pt')">Portuguese</a></li>
+        <li><a (click)="changeLanguage('es')">Spanish</a></li>
+        <li><a (click)="changeLanguage('fr')">French</a></li>
+        <li><a (click)="changeLanguage('de')">German</a></li>
+        <li><a (click)="changeLanguage('it')">Italian</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="route-list">
+    <p>
+      <a [routerLink]="'/city-form'">{{ 'FORM' | translate }}</a>
+    </p>
+    <p>
+      <a [routerLink]="'/city-list'">{{ 'LIST_OF_CITIES' | translate }}</a>
+    </p>
+  </div>
 </div>

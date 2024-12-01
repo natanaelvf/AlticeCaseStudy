@@ -12,76 +12,29 @@
   position: relative;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown .dropdown-toggle {
-  background: none;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.dropdown .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-  min-width: max-content;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown-menu li {
-  text-decoration: none;
-  padding: 5px 10px;
-  white-space: nowrap;
-}
-
-.dropdown-menu li a {
-  text-decoration: none;
-  color: black;
-}
-
 .title {
   margin-right: 75px;
   margin-left: 75px;
   font-weight: bold;
+  font-size: 50px;
 }
 
 a {
   text-decoration: none;
+  color: white;
 }
 
 a:visited {
   text-decoration: none;
-  color: white;
 }
 
 a:hover {
   font-weight: 700;
   text-decoration: none;
-  color: white;
 }
 
 a:focus {
   text-decoration: none;
-  color: white;
 }
 
 .white-nav {

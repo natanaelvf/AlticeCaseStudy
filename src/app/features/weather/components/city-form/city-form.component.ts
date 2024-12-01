@@ -56,6 +56,10 @@ export class CityFormComponent {
     const temperature = control.value;
     const unit = this.weatherForm?.get('temperatureUnit')?.value;
 
+    if (temperature == '') {
+      return { invalidTemperature: true };
+    }
+
     if (unit === 'F') {
       const convertedTemp = (temperature - 32) * (5 / 9);
       if (convertedTemp < -100 || convertedTemp > 70) {

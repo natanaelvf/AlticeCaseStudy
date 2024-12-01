@@ -11,6 +11,11 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter([
       {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full', // Redirect when URL is empty
+      },
+      {
         path: 'home',
         loadComponent: () =>
           import('./app/home/home.component').then((m) => m.HomeComponent),
@@ -27,7 +32,13 @@ bootstrapApplication(AppComponent, {
       },
     ]),
     importProvidersFrom(
-      TranslateModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
+      }),
       HttpClientModule,
       NgxEchartsModule.forRoot({
         echarts: () => import('echarts'), // Dynamically import echarts

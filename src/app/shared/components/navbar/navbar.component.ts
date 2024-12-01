@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -9,9 +9,10 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
   imports: [CommonModule, RouterLink],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   languageDropdownOpen = false;
   timezoneDropdownOpen = false;
+  showNavbar = true;
 
   toggleLanguageDropdown() {
     this.languageDropdownOpen = !this.languageDropdownOpen;
@@ -27,5 +28,14 @@ export class NavbarComponent {
 
   changeTimezone(timezone: string) {
     console.log(`Timezone set to: ${timezone}`);
+  }
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      const currentUrl = this.router.url; // Get the current route
+      this.showNavbar = currentUrl !== '/' && currentUrl !== '/home'; // Hide for '' and 'home'
+    });
   }
 }

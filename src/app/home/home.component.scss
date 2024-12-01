@@ -1,8 +1,106 @@
 .home {
   text-align: center;
   margin: 20px;
+  position: relative;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 button {
   margin: 5px;
+}
+
+.route-list {
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+button {
+  font-size: 25px;
+  border: none;
+  text-decoration: none;
+  background-color: white;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  margin-left: 200px;
+}
+
+.dropdown .dropdown-toggle {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+
+}
+
+.dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  min-width: max-content;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  text-decoration: none;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: black;
+}
+
+h1 {
+  margin-left: 400px;
+  font-size: 70px !important;
+}
+
+.route-list {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+p {
+  font-size: 50px !important;
+  border: 3px solid white;
+  padding: 10px;
+  margin: 0;
+  width: auto;
+  text-align: center;
+  margin: 200px 200px;
+  min-width: 400px;
+}
+
+a {
+  cursor: pointer;
 }
