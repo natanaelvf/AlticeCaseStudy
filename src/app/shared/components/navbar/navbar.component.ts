@@ -11,20 +11,10 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   languageDropdownOpen = false;
-  timezoneDropdownOpen = false;
   showNavbar = true;
-  showTimezone = true;
 
   toggleLanguageDropdown() {
     this.languageDropdownOpen = !this.languageDropdownOpen;
-  }
-
-  toggleTimezoneDropdown() {
-    this.timezoneDropdownOpen = !this.timezoneDropdownOpen;
-  }
-
-  changeTimezone(timezone: string) {
-    console.log(`Timezone set to: ${timezone}`);
   }
 
   constructor(private router: Router) {}
@@ -33,7 +23,6 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe(() => {
       const currentUrl = this.router.url; // Get the current route
       this.showNavbar = currentUrl !== '/' && currentUrl !== '/home'; // Hide for '' and 'home'
-      this.showTimezone = currentUrl !== '/' && currentUrl !== '/city-form';
     });
   }
 }

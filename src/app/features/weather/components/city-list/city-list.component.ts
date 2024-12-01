@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
@@ -29,15 +29,18 @@ interface WorstRegistries {
   imports: [CommonModule, NgxEchartsModule, FormatDatePipe],
 })
 export class CityListComponent implements OnInit {
+
   cities: CityRecord[] = [];
   groupedCities: Map<string, CityRecord[]> = new Map();
   worstRegistries: Map<string, WorstRegistries> = new Map(); // Cache for worst registries
   expandedCities: Set<string> = new Set();
+  selectedTemperatureUnit: string = 'C';
+  selectedTimezone: string = 'UTC';
 
   temperatureGraphOptions: Map<string, any> = new Map();
   networkPowerGraphOptions: Map<string, any> = new Map();
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.weatherService.getWeatherData().subscribe({
@@ -86,13 +89,12 @@ export class CityListComponent implements OnInit {
   }
 
   prepareGraphOptions(cityName: string, records: CityRecord[]) {
-    // There's definitely a way to implement this with both Celsius and Fahrenheit, but this already took too long
     const sortedRecords = records.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     this.temperatureGraphOptions.set(cityName, {
       xAxis: {
         type: 'category',
-        data: sortedRecords.map((record) => new Date(record.date).toLocaleDateString()),
+        data: sortedRecords.map((record) => record.date),
         axisLabel: { fontSize: 25, color: 'white' },
       },
       yAxis: {
@@ -104,7 +106,7 @@ export class CityListComponent implements OnInit {
           data: sortedRecords.map((record) => record.temperature),
           type: 'line',
           smooth: false,
-          name: 'Temperature (°C)',
+          name: `Temperature (°${this.selectedTemperatureUnit})`,
           lineStyle: { color: 'white' },
         },
       ],
@@ -120,7 +122,7 @@ export class CityListComponent implements OnInit {
     this.networkPowerGraphOptions.set(cityName, {
       xAxis: {
         type: 'category',
-        data: sortedRecords.map((record) => new Date(record.date).toLocaleDateString()),
+        data: sortedRecords.map((record) => record.date),
         axisLabel: { fontSize: 25, color: 'white' },
       },
       yAxis: {
@@ -144,7 +146,10 @@ export class CityListComponent implements OnInit {
         textStyle: { fontSize: 40, color: 'white' },
       },
     });
+
+    this.cdr.detectChanges();
   }
+
 
   toggleCityDetails(cityName: string) {
     if (this.expandedCities.has(cityName)) {
@@ -174,4 +179,50 @@ export class CityListComponent implements OnInit {
   getConstrainedWidth(calculatedWidth: number): number {
     return Math.min(2500, Math.max(1000, calculatedWidth));
   }
+
+  changeTemperatureUnit(temperatureUnit: string) {
+    this.selectedTemperatureUnit = temperatureUnit;
+    this.updateRecords();
+  }
+
+  changeTimezone(timezone: string) {
+    this.selectedTimezone = timezone;
+    this.updateRecords();
+  }
+
+  convertTemperature(temp: number, fromUnit: string, toUnit: string): number {
+    if (fromUnit === toUnit) return parseFloat(temp.toFixed(2));
+    return fromUnit === 'C'
+      ? parseFloat((temp * (9 / 5) + 32).toFixed(2))
+      : parseFloat(((temp - 32) * (5 / 9)).toFixed(2));
+  }
+
+  convertDate(date: string): string {
+    const localDate = new Date(date).toLocaleString('en-US', {
+      timeZone: this.selectedTimezone,
+    });
+    return formatDate(new Date(localDate), 'yyyy-MM-dd HH:mm', 'en-US');
+  }
+
+  updateRecords(): void {
+    this.groupedCities.forEach((records, cityName) => {
+      records.forEach((record) => {
+        record.temperature = this.convertTemperature(
+          record.temperature,
+          record.temperatureUnit,
+          this.selectedTemperatureUnit
+        );
+        record.temperatureUnit = this.selectedTemperatureUnit;
+
+        record.date = this.convertDate(record.date);
+        record.timezone = this.selectedTimezone;
+      });
+
+      this.worstRegistries.set(cityName, this.getWorstRegistries(records));
+      this.prepareGraphOptions(cityName, records);
+    });
+
+    this.cdr.detectChanges();
+  }
+
 }

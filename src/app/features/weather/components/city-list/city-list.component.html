@@ -1,6 +1,28 @@
 <div class="city-list">
   <div class="header-container">
-    <h1>City List <button (click)="refreshData()">Refresh</button></h1>
+    <h1>City List</h1>
+
+    <div class="dropdown">
+      <button class="dropdown-toggle">{{ selectedTimezone }} &#9660;</button>
+      <ul class="dropdown-menu timezone">
+        <li><a (click)="changeTimezone('UTC')">UTC</a></li>
+        <li><a (click)="changeTimezone('GMT')">GMT</a></li>
+        <li><a (click)="changeTimezone('EST')">EST</a></li>
+        <li><a (click)="changeTimezone('PST')">PST</a></li>
+        <li><a (click)="changeTimezone('CET')">CET</a></li>
+        <li><a (click)="changeTimezone('IST')">IST</a></li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-toggle">{{ selectedTemperatureUnit }} &#9660;</button>
+      <ul class="dropdown-menu temperature-unit">
+        <li><a (click)="changeTemperatureUnit('C')">ºC</a></li>
+        <li><a (click)="changeTemperatureUnit('F')">ºF</a></li>
+      </ul>
+    </div>
+
+    <button (click)="refreshData()">Refresh</button>
   </div>
 
   <div *ngFor="let cityGroup of groupedCities | keyvalue" class="city-item">
@@ -8,6 +30,7 @@
       <h2>{{ cityGroup.key }}</h2>
     </div>
 
+    <!-- City Description -->
     <div *ngIf="isCityExpanded(cityGroup.key)" class="city-details">
       <div *ngFor="let record of cityGroup.value" class="city-record city-details">
         <p class="white-border">
