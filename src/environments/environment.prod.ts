@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiUrl: 'https://api.myapp.com',
-  apiKey: '64c86217c3844098a87eff0d16a336e7',
+  apiKey: '9934aabb0b2c4281822b251ba161835f',
 };
