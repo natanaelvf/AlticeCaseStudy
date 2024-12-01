@@ -11,7 +11,7 @@
     <div *ngIf="isCityExpanded(cityGroup.key)" class="city-details">
       <div *ngFor="let record of cityGroup.value" class="city-record city-details">
         <p class="white-border">
-          <strong>Date:</strong> {{ record.date | formatDate}}<br />
+          <strong>Date:</strong> {{ record.date | formatDate }} {{ record.timezone }}<br />
           <strong>Temperature:</strong> {{ record.temperature }}º {{ record.temperatureUnit }}<br />
           <strong>Raining:</strong> {{ record.raining ? 'Yes' : 'No' }}<br />
           <strong>Network Power:</strong> {{ record.networkPower }}<br />
@@ -25,7 +25,7 @@
         <div class="worst-registry">
           <h4>Lowest Temperature</h4>
           <p>
-            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.date  | formatDate }}<br />
+            <strong>Date:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.date  | formatDate }} <br />
             <strong>Temperature:</strong> {{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperature }}
             °{{ worstRegistries.get(cityGroup.key)?.lowestTemperature?.temperatureUnit }}<br />
           </p>

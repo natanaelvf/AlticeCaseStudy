@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   languageDropdownOpen = false;
   timezoneDropdownOpen = false;
   showNavbar = true;
+  showTimezone = true;
 
   toggleLanguageDropdown() {
     this.languageDropdownOpen = !this.languageDropdownOpen;
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe(() => {
       const currentUrl = this.router.url; // Get the current route
       this.showNavbar = currentUrl !== '/' && currentUrl !== '/home'; // Hide for '' and 'home'
+      this.showTimezone = currentUrl !== '/' && currentUrl !== '/city-form';
     });
   }
 }

@@ -27,6 +27,7 @@ export class CityFormComponent {
       temperatureUnit: ['C', Validators.required],
       raining: ['', Validators.required],
       date: [formattedDate, Validators.required],
+      timezone: ['UTC', Validators.required],
       networkPower: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       altitude: ['', Validators.required],
     });
@@ -40,7 +41,6 @@ export class CityFormComponent {
 
       this.weatherService.createWeatherData(formData).subscribe({
         next: () => {
-          console.log('Data successfully uploaded.');
           this.submissionSuccess = true;
           alert('Form Submitted Successfully!');
         },

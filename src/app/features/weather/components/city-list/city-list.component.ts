@@ -8,6 +8,7 @@ interface CityRecord {
   cityName: string;
   temperature: number;
   temperatureUnit: string;
+  timezone: string;
   raining: boolean;
   date: string;
   networkPower: number;

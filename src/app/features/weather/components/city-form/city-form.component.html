@@ -11,7 +11,7 @@
   <!-- Temperature Field -->
   <div class="field-group">
     <label for="temperature">Temperature</label>
-    <input id="temperature" type="number" formControlName="temperature" step="0.1" />
+    <input id="temperature" type="number" formControlName="temperature"/>
     <select id="temperatureUnit" formControlName="temperatureUnit">
       <option value="C">°C</option>
       <option value="F">°F</option>
@@ -38,6 +38,13 @@
   <div class="field-group">
     <label for="date">Date</label>
     <input id="date" type="datetime-local" formControlName="date" />
+    <select id="timezone" formControlName="timezone" selected="UTC">
+      <option value="UTC">UTC</option>
+      <option value="GMT">GMT</option>
+      <option value="PST">PST</option>
+      <option value="CET">CET</option>
+      <option value="IST">IST</option>
+    </select>
   </div>
   <div *ngIf="formSubmitted && weatherForm.get('date')?.invalid" class="field-warning">
     Date is required.
