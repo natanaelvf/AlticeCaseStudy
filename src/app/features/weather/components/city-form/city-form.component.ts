@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./city-form.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
 })
-export class CityFormComponent implements OnInit {
+export class CityFormComponent {
   weatherForm: FormGroup;
   formSubmitted = false;
   submissionSuccess = false;
@@ -30,19 +30,6 @@ export class CityFormComponent implements OnInit {
       timezone: ['UTC', Validators.required],
       networkPower: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       altitude: ['', Validators.required],
-    });
-  }
-
-  ngOnInit(): void {
-    const temperatureControl = this.weatherForm.get('temperature');
-    this.weatherForm.get('temperatureUnit')?.valueChanges.subscribe(() => {
-      console.log('Temperature Unit Changed: Triggering Validation');
-      temperatureControl?.markAsTouched();
-      temperatureControl?.updateValueAndValidity();
-    });
-    this.weatherForm.get('temperature')?.valueChanges.subscribe(() => {
-      temperatureControl?.markAsTouched();
-      temperatureControl?.updateValueAndValidity();
     });
   }
 
@@ -72,12 +59,12 @@ export class CityFormComponent implements OnInit {
     const temperature = control.value;
     const unit = this.weatherForm?.get('temperatureUnit')?.value;
 
-    if (temperature == null || temperature === '') {
+    if (temperature == '') {
       return { invalidTemperature: true };
     }
 
     if (unit === 'F') {
-      const convertedTemp = (temperature - 32) * (5 / 9); // Convert Fahrenheit to Celsius
+      const convertedTemp = (temperature - 32) * (5 / 9);
       if (convertedTemp < -100 || convertedTemp > 70) {
         return { invalidTemperature: true };
       }
