@@ -1,19 +1,7 @@
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .home {
   text-align: center;
   margin: 20px;
   position: relative;
-  animation: slideDown 2s ease-out;
 }
 
 .header-container {
@@ -21,23 +9,20 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-top: 100px;
-  margin-bottom: 100px;
 }
 
 button {
   font-size: 25px;
   border: none;
   text-decoration: none;
-  background-color: #ccc;
-
-  &:hover {
+  background-color: white;
+  :hover {
     cursor: pointer;
   }
 }
 
 .route-list {
-  color: #ccc;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +30,7 @@ button {
 }
 
 a {
-  color: #ccc;
+  color: white;
   text-decoration: none;
   cursor: pointer;
 }
@@ -57,10 +42,11 @@ a {
 
 .dropdown .dropdown-toggle {
   background: none;
-  color: #ccc;
+  color: white;
   border: none;
   font-size: 1rem;
   cursor: pointer;
+
 }
 
 .dropdown .dropdown-menu {
@@ -69,7 +55,7 @@ a {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: #ccc;
+  background: white;
   border: 1px solid #ccc;
   max-height: 200px;
   overflow-y: auto;
@@ -98,10 +84,11 @@ h1 {
 
 p {
   font-size: 50px !important;
-  border: 3px solid #ccc;
+  border: 3px solid white;
   padding: 10px;
-  margin: 100px auto;
+  margin: 0;
   width: auto;
   text-align: center;
+  margin: 200px 200px;
   min-width: 400px;
 }
